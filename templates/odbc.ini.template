@@ -1,0 +1,7 @@
+[KICAD_PG]
+Description = PostgreSQL ODBC for KiCad
+Driver      = PostgreSQL Unicode
+Servername  = localhost
+Port        = 5432
+Database    = kicaddb
+Username    = kicad

@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17
+    restart: always
+    shm_size: 128mb
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    secrets:
+      - postgres_password
+    volumes:
+      - pgdata:/var/lib/postgresql/data:rw
+
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+
+volumes:
+  pgdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PGDATA_HOST_PATH}
